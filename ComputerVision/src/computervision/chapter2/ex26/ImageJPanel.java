@@ -17,11 +17,7 @@ public class ImageJPanel extends javax.swing.JPanel {
     }
 
     public ImageJPanel(JLabel iconImage) {
-        initComponents();
-      //  this.jLabelImage = iconImage;
-        
-        
-        
+        initComponents();                          
     }
 
     /**
