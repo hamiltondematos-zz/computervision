@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.border.TitledBorder;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
@@ -132,7 +133,13 @@ public class MainWindow26 extends javax.swing.JFrame {
                 images.add(selectedFile.getName());
             }
 
-            calculateRGBAverage(images);
+            try {
+                calculateRGBAverage(images);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Não foi possível carregar imagem");
+                images = new ArrayList<>();
+                return;
+            }
 
         }
 
@@ -214,6 +221,7 @@ public class MainWindow26 extends javax.swing.JFrame {
             DecimalFormat df = new DecimalFormat("#.00");
 
             for (int c = 0; c < 3; c++) {
+
                 Imgproc.calcHist(image, mChannels[c], mMat0, hist, mHistSize, mRanges);
 
                 System.out.println(hist.dump());
@@ -247,7 +255,7 @@ public class MainWindow26 extends javax.swing.JFrame {
             jPanel1.add(imageJPanel);
 
             revalidate();
-         
+
         }
     }
 }
