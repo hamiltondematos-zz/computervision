@@ -1,0 +1,26 @@
+Ex 2.8: 
+
+Skin color detection 
+
+Devise a simple skin color detector (Forsyth and Fleck 1999;
+Jones and Rehg 2001; Vezhnevets, Sazonov, and Andreeva 2003; Kakumanu, Makrogiannis,
+and Bourbakis 2007) based on chromaticity or other color properties.
+
+1. Take a variety of photographs of people and calculate the xy chromaticity values for
+each pixel.
+
+2. Crop the photos or otherwise indicate with a painting tool which pixels are likely to be
+skin (e.g. face and arms).
+
+3. Calculate a color (chromaticity) distribution for these pixels. You can use something as
+simple as a mean and covariance measure or as complicated as a mean-shift segmentation
+algorithm (see Section 5.3.2). You can optionally use non-skin pixels to model the
+background distribution.
+
+4. Use your computed distribution to find the skin regions in an image. One easy way to
+visualize this is to paint all non-skin pixels a given color, such as white or black.
+
+5. How sensitive is your algorithm to color balance (scene lighting)?
+
+6. Does a simpler chromaticity measurement, such as a color ratio (2.116), work just as
+well?

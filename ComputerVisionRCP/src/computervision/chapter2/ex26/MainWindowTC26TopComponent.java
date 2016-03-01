@@ -52,7 +52,7 @@ import org.openide.windows.TopComponent;
 @ActionReference(path = "Menu/Window" /*, position = 333 */)
 @TopComponent.OpenActionRegistration(
         displayName = "#CTL_MainWindowTC26Action",
-        preferredID = "MainWindowTC26TopComponent"
+        preferredID = "MainWindow26TopComponent"
 )
 @Messages({
     "CTL_MainWindowTC26Action=Exercise 2.6",

@@ -22,7 +22,7 @@ import org.openide.windows.TopComponent;
         autostore = false
 )
 @TopComponent.Description(
-        preferredID = "MainWindowTopComponent",
+        preferredID = "MainWindow22TopComponent",
         //iconBase="SET/PATH/TO/ICON/HERE", 
         persistenceType = TopComponent.PERSISTENCE_ALWAYS
 )
