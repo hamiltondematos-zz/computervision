@@ -1,0 +1,23 @@
+Ex 14.1: 
+
+Face detection 
+
+Build and test one of the face detectors presented in Section 14.1.1.
+
+1. Download one or more of the labeled face detection databases in Table 14.2.
+
+2. Generate your own negative examples by finding photographs that do not contain any
+people.
+
+3. Implement one of the following face detectors (or devise one of your own):
+ boosting (Algorithm 14.1) based on simple area features, with an optional cascade
+of detectors (Viola and Jones 2004);
+ PCA face subspace (Moghaddam and Pentland 1997);
+ distances to clustered face and non-face prototypes, followed by a neural network
+(Sung and Poggio 1998) or SVM (Osuna, Freund, and Girosi 1997) classifier;
+ a multi-resolution neural network trained directly on normalized gray-level patches
+(Rowley, Baluja, and Kanade 1998a).
+
+4. Test the performance of your detector on the database by evaluating the detector at every
+location in a sub-octave pyramid. Optionally retrain your detector on false positive
+examples you get on non-face images.

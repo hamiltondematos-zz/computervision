@@ -35,8 +35,7 @@ public class Deblur {
         Mat m = Imgcodecs.imread("bluredImage.jpg");
         Mat mResult = Imgcodecs.imread("bluredImageRESULT.jpg");
         Photo.fastNlMeansDenoisingColored(m,mResult,10,10,7,21);
-        
-        
+                
         if (m != null) {
             System.out.println("Height: " + m.height() + " Width: " + m.width());
             showResult(m);

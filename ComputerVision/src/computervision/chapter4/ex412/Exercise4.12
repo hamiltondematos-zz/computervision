@@ -1,0 +1,30 @@
+Ex 4.12: Hough transform line detector Implement a Hough transform for finding lines
+in images:
+4.5 Exercises 265
+1. Create an accumulator array of the appropriate user-specified size and clear it. The user
+can specify the spacing in degrees between orientation bins and in pixels between distance
+bins. The array can be allocated as integer (for simple counts), floating point (for
+weighted counts), or as an array of vectors for keeping back pointers to the constituent
+edges.
+2. For each detected edgel at location (x; y) and orientation  = tan􀀀1 ny=nx, compute
+the value of
+d = xnx + yny (4.33)
+and increment the accumulator corresponding to (; d).
+(Optional) Weight the vote of each edge by its length (see Exercise 4.7) or the strength
+of its gradient.
+3. (Optional) Smooth the scalar accumulator array by adding in values from its immediate
+neighbors. This can help counteract the discretization effect of voting for only a single
+bin—see Exercise 3.7.
+4. Find the largest peaks (local maxima) in the accumulator corresponding to lines.
+5. (Optional) For each peak, re-fit the lines to the constituent edgels, using total least
+squares (Appendix A.2). Use the original edgel lengths or strength weights to weight
+the least squares fit, as well as the agreement between the hypothesized line orientation
+and the edgel orientation. Determine whether these heuristics help increase the
+accuracy of the fit.
+6. After fitting each peak, zero-out or eliminate that peak and its adjacent bins in the array,
+and move on to the next largest peak.
+Test out your Hough transform on a variety of images taken indoors and outdoors, as well
+as checkerboard calibration patterns.
+For checkerboard patterns, you can modify your Hough transform by collapsing antipodal
+bins ( 180;􀀀d) with (; d) to find lines that do not care about polarity changes. Can you
+think of examples in real-world images where this might be desirable as well?

@@ -1,0 +1,40 @@
+Ex 4.7: 
+
+Edge detector Implement an edge detector of your choice. Compare its performance
+to that of your classmates’ detectors or code downloaded from the Internet.
+A simple but well-performing sub-pixel edge detector can be created as follows:
+
+1. Blur the input image a little,
+B(x) = G(x)  I(x):
+2. Construct a Gaussian pyramid (Exercise 3.19),
+P = PyramidfB(x)g
+3. Subtract an interpolated coarser-level pyramid image from the original resolution blurred
+image,
+S(x) = B(x) 􀀀 P:InterpolatedLevel(L):
+10 http://www.robots.ox.ac.uk/vgg/research/affine/.
+262 Computer Vision: Algorithms and Applications (September 3, 2010 draft)
+struct SEdgel {
+float e[2][2]; // edgel endpoints (zero crossing)
+float x, y; // sub-pixel edge position (midpoint)
+float n_x, n_y; // orientation, as normal vector
+float theta; // orientation, as angle (degrees)
+float length; // length of edgel
+float strength; // strength of edgel (gradient magnitude)
+};
+struct SLine : public SEdgel {
+float line_length; // length of line (est. from ellipsoid)
+float sigma; // estimated std. dev. of edgel noise
+float r; // line equation: x * n_y - y * n_x = r
+};
+Figure 4.48 A potential C++ structure for edgel and line elements.
+4. For each quad of pixels, f(i; j); (i + 1; j); (i; j + 1); (i + 1; j + 1)g, count the number
+of zero crossings along the four edges.
+5. When there are exactly two zero crossings, compute their locations using (4.25) and
+store these edgel endpoints along with the midpoint in the edgel structure (Figure 4.48).
+6. For each edgel, compute the local gradient by taking the horizontal and vertical differences
+between the values of S along the zero crossing edges.
+7. Store the magnitude of this gradient as the edge strength and either its orientation or
+that of the segment joining the edgel endpoints as the edge orientation.
+8. Add the edgel to a list of edgels or store it in a 2D array of edgels (addressed by pixel
+coordinates).
+Figure 4.48 shows a possible representation for each computed edgel.

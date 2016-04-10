@@ -1,0 +1,28 @@
+Ex 3.28: 
+
+Image denoising 
+
+Implement at least two of the various image denoising techniques
+described in this chapter and compare them on both synthetically noised image sequences
+and real-world (low-light) sequences. Does the performance of the algorithm depend
+on the correct choice of noise level estimate? Can you draw any conclusions as to
+which techniques work better?
+
+Used to be linear filtering
+Today - non-linear filtering:
+	3.3.1-weighted median
+	3.34, 3.37-bilateral filter
+	3.39, 3.40-anisotropic diffusion
+	Non-local means
+
+12 ou 14
+
+box filter - low pass average
+             high pass
+
+
+median filter - ficou melhor
+
+minimum - tudo preto
+
+gaussian filter
