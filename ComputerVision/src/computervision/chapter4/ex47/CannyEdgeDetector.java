@@ -44,13 +44,13 @@ import java.util.Arrays;
  */
 public class CannyEdgeDetector {
 
-	// statics
+    // statics
     private final static float GAUSSIAN_CUT_OFF = 0.005f;
     private final static float MAGNITUDE_SCALE = 100F;
     private final static float MAGNITUDE_LIMIT = 1000F;
     private final static int MAGNITUDE_MAX = (int) (MAGNITUDE_SCALE * MAGNITUDE_LIMIT);
 
-	// fields
+    // fields
     private int height;
     private int width;
     private int picsize;
@@ -70,7 +70,7 @@ public class CannyEdgeDetector {
     private float[] xGradient;
     private float[] yGradient;
 
-	// constructors
+    // constructors
     /**
      * Constructs a new detector with default parameters.
      */
@@ -82,7 +82,7 @@ public class CannyEdgeDetector {
         contrastNormalized = false;
     }
 
-	// accessors
+    // accessors
     /**
      * The image that provides the luminance data used by this detector to
      * generate edges.
@@ -245,7 +245,7 @@ public class CannyEdgeDetector {
         this.contrastNormalized = contrastNormalized;
     }
 
-	// methods
+    // methods
     public void process() {
         width = sourceImage.getWidth();
         height = sourceImage.getHeight();
@@ -263,7 +263,7 @@ public class CannyEdgeDetector {
         writeEdges(data);
     }
 
-	// private utility methods
+    // private utility methods
     private void initArrays() {
         if (data == null || picsize != data.length) {
             data = new int[picsize];
@@ -276,7 +276,7 @@ public class CannyEdgeDetector {
         }
     }
 
-	//NOTE: The elements of the method below (specifically the technique for
+    //NOTE: The elements of the method below (specifically the technique for
     //non-maximal suppression and the technique for gradient computation)
     //are derived from an implementation posted in the following forum (with the
     //clear intent of others using the code):
@@ -427,7 +427,7 @@ public class CannyEdgeDetector {
                         : (tmp = Math.abs(yGrad * gradMag)) >= Math.abs(xGrad * seMag + (yGrad - xGrad) * sMag) /*(3)*/
                         && tmp > Math.abs(xGrad * nwMag + (yGrad - xGrad) * nMag) /*(4)*/) {
                     magnitude[index] = gradMag >= MAGNITUDE_LIMIT ? MAGNITUDE_MAX : (int) (MAGNITUDE_SCALE * gradMag);
-					//NOTE: The orientation of the edge is not employed by this
+                    //NOTE: The orientation of the edge is not employed by this
                     //implementation. It is a simple matter to compute it at
                     //this point as: Math.atan2(yGrad, xGrad);
                 } else {
@@ -437,7 +437,7 @@ public class CannyEdgeDetector {
         }
     }
 
-	//NOTE: It is quite feasible to replace the implementation of this method
+    //NOTE: It is quite feasible to replace the implementation of this method
     //with one which only loosely approximates the hypot function. I've tested
     //simple approximations such as Math.abs(x) + Math.abs(y) and they work fine.
     private float hypot(float x, float y) {
@@ -449,7 +449,7 @@ public class CannyEdgeDetector {
     }
 
     private void performHysteresis(int low, int high) {
-		//NOTE: this implementation reuses the data array to store both
+        //NOTE: this implementation reuses the data array to store both
         //luminance data from the image, and edge intensity from the processing.
         //This is done for memory efficiency, other implementations may wish
         //to separate these functions.
@@ -554,7 +554,7 @@ public class CannyEdgeDetector {
     }
 
     private void writeEdges(int pixels[]) {
-		//NOTE: There is currently no mechanism for obtaining the edge data
+        //NOTE: There is currently no mechanism for obtaining the edge data
         //in any other format other than an INT_ARGB type BufferedImage.
         //This may be easily remedied by providing alternative accessors.
         if (edgesImage == null) {
