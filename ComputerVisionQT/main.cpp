@@ -49,12 +49,12 @@ int main(int argc, char ** argv)
     CvMat* cvShowDFT1(IplImage*, int, int,char*);
     void cvShowInvDFT1(IplImage*, CvMat*, int, int,char*);
 
-    im1 = cvLoadImage( "/homer.jpg",1 );
+    im1 = cvLoadImage( "../homer.jpg",1 );
 
     cvNamedWindow("Original-color", 0);
     cvShowImage("Original-color", im1);
 
-    im = cvLoadImage( "/homer.jpg", CV_LOAD_IMAGE_GRAYSCALE );
+    im = cvLoadImage( "../homer.jpg", CV_LOAD_IMAGE_GRAYSCALE );
 
     if( !im )
         return -1;
