@@ -140,7 +140,7 @@ public final class MainWindowTC26TopComponent extends TopComponent {
             }
 
             try {
-                calculateRGBAverage(images);
+                calculateRGBHistograms(images);
                 
                 GridLayout layout = (GridLayout) jPanel1.getLayout();
                 layout.setRows(images.size()/3);
@@ -182,76 +182,87 @@ public final class MainWindowTC26TopComponent extends TopComponent {
         // TODO read your settings according to their version
     }
 
-    private void calculateRGBAverage(List<String> images) {
-        for (String img : images) {
+    private void calculateRGBHistograms(List<String> images) {
+        
+        images.stream().map((img) -> {
+            
             Mat rgba = Imgcodecs.imread(img);
-
-            List<Mat> image = new ArrayList<Mat>();
-            image.add(rgba);
-
+            
+            List<Mat> imageList = new ArrayList<>();            
+            imageList.add(rgba);
+            
             Size sizeRgba = rgba.size();
+            
             Mat hist = new Mat();
+            
             int mHistSizeNum = 25;
             int thikness = (int) (sizeRgba.width / (mHistSizeNum + 10) / 5);
             if (thikness > 5) {
                 thikness = 5;
             }
+            
             int offset = (int) ((sizeRgba.width - (5 * mHistSizeNum + 4 * 10) * thikness) / 2);
-
+            
             MatOfFloat mRanges = new MatOfFloat(0f, 256f);
-
+            
             MatOfInt mHistSize = new MatOfInt(mHistSizeNum);
-            Mat mMat0 = new Mat();
-            MatOfInt[] mChannels = new MatOfInt[]{new MatOfInt(0), new MatOfInt(1), new MatOfInt(2)};
-
+            
+            Mat mMat0 = new Mat();        
+            MatOfInt[] colorChannels = new MatOfInt[]{new MatOfInt(0), new MatOfInt(1), new MatOfInt(2)};            
             float mBuff[];
             mBuff = new float[mHistSizeNum];
             Point mP1 = new Point();
             Point mP2 = new Point();
-            Scalar mColorsRGB[];
+            Scalar mColorsRGB[];            
             double[] averageResults = new double[3];
-
             mColorsRGB = new Scalar[]{new Scalar(200, 0, 0, 255), new Scalar(0, 200, 0, 255), new Scalar(0, 0, 200, 255)};
-
             DecimalFormat df = new DecimalFormat("#.00");
+            
+            for (int color = 0; color < 3; color++) {
 
-            for (int c = 0; c < 3; c++) {
-
-                Imgproc.calcHist(image, mChannels[c], mMat0, hist, mHistSize, mRanges);
-
-                System.out.println(hist.dump());
+                Imgproc.calcHist(imageList, colorChannels[color], mMat0, hist, mHistSize, mRanges);
+               
                 Core.MinMaxLocResult minMaxLoc = Core.minMaxLoc(hist);
 
                 Core.normalize(hist, hist, sizeRgba.height / 2, 0, Core.NORM_INF);
+            
                 hist.get(0, 0, mBuff);
+                
                 for (int h = 0; h < mHistSizeNum; h++) {
-                    mP1.x = mP2.x = offset + (c * (mHistSizeNum + 10) + h) * thikness;
+                    mP1.x = mP2.x = offset + (color * (mHistSizeNum + 10) + h) * thikness;
                     mP1.y = (int) (sizeRgba.height - 1);
                     mP2.y = mP1.y - 2 - (int) mBuff[h];
-                    Imgproc.line(rgba, mP1, mP2, mColorsRGB[c], thikness);
+                    Imgproc.line(rgba, mP1, mP2, mColorsRGB[color], thikness);
                 }
 
                 double result = (minMaxLoc.maxVal - minMaxLoc.minVal) / 256;
-                System.out.println("max------" + minMaxLoc.maxVal);
-                System.out.println("min------" + minMaxLoc.minVal);
-                System.out.println("avg------" + df.format(result));
-                averageResults[c] = result;
+                
+                System.out.println("max: " + minMaxLoc.maxVal);
+                System.out.println("min: " + minMaxLoc.minVal);
+                System.out.println("avg: " + df.format(result));
+                averageResults[color] = result;
             }
-
+            
             ImageJPanel imageJPanel = new ImageJPanel();
             TitledBorder border = (TitledBorder) imageJPanel.getBorder();
             border.setTitle(img);
+            
             Icon icon = createImageIconFor(rgba);
             imageJPanel.getjLabelImage().setIcon(icon);
             imageJPanel.getjLabelB().setText(String.valueOf(df.format(averageResults[0])));
             imageJPanel.getjLabelG().setText(String.valueOf(df.format(averageResults[1])));
             imageJPanel.getjLabelR().setText(String.valueOf(df.format(averageResults[2])));
-
+            
+            return imageJPanel;
+            
+        }).map((imageJPanel) -> {
+            
             jPanel1.add(imageJPanel);
-
+            return imageJPanel;
+            
+        }).forEach((_item) -> {
             revalidate();
-
-        }
+        });
     }
 
     public ImageIcon createImageIconFor(Mat img) {

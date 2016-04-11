@@ -7,8 +7,6 @@ package computervision.chapter2.ex28;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
@@ -23,7 +21,6 @@ import org.opencv.core.MatOfRect;
 import org.opencv.core.Scalar;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
-import org.opencv.objdetect.CascadeClassifier;
 import org.opencv.videoio.VideoCapture;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
@@ -111,7 +108,7 @@ public final class MainWindow28TopComponent extends TopComponent {
                                     new Scalar(255, 173, 127),
                                     destMatrix);
 
-                            List<MatOfPoint> contours = new ArrayList<MatOfPoint>();
+                            List<MatOfPoint> contours = new ArrayList<>();
                             Imgproc.findContours(destMatrix, contours, new Mat(), Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
 
                             for (int i = 0; i < contours.size(); i++) {

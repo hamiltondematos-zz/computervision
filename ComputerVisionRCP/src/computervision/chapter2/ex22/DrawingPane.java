@@ -366,14 +366,6 @@ public class DrawingPane extends JComponent {
         int w = (int) (getSize().getWidth() / 2);
         int y = (int) (getSize().getHeight() / 2);
 
-//        double ax = shapeSelected.getX();
-//        double bx = shapeSelected.getX() + shapeSelected.getWidth();
-//        double cx = shapeSelected.getX() + shapeSelected.getWidth();
-//        double dx = shapeSelected.getX();
-//        double ay = shapeSelected.getY();
-//        double by = shapeSelected.getY();
-//        double cy = shapeSelected.getY() + shapeSelected.getHeight();
-//        double dy = shapeSelected.getY() + shapeSelected.getHeight();
         double ax = polygonSelected.getBounds2D().getX();
         double bx = polygonSelected.getBounds2D().getX() + polygonSelected.getBounds2D().getWidth();
         double cx = polygonSelected.getBounds2D().getX() + polygonSelected.getBounds2D().getWidth();
@@ -384,14 +376,6 @@ public class DrawingPane extends JComponent {
         double dy = polygonSelected.getBounds2D().getY() + polygonSelected.getBounds2D().getHeight();
 
         Mat result = multiplyMatrices(new double[]{
-            //            0,
-            //            100,
-            //            100,
-            //            0,
-            //            0,
-            //            0,
-            //            100,
-            //            100
             ax,
             bx,
             cx,

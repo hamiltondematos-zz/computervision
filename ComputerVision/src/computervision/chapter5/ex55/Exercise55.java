@@ -21,17 +21,19 @@ public class Exercise55 {
     public static void main(String[] args) {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
-        Mat img = Imgcodecs.imread("c:/open/images/blocks.jpg");
+        Mat img = Imgcodecs.imread("images/blocks.jpg");
         Mat output = new Mat();
 
         Imgproc.pyrMeanShiftFiltering(img, output, 30, 30);
 
-        displayImage(mat2BufferedImage(output));
+        displayImage(mat2BufferedImage(img), "Original");
+        displayImage(mat2BufferedImage(output), "Mean shift");
     }
 
-    public static void displayImage(Image img2) {
+    public static void displayImage(Image img2, String title) {
         ImageIcon icon = new ImageIcon(img2);
         JFrame frame = new JFrame();
+        frame.setTitle(title);
         frame.setLayout(new FlowLayout());
         frame.setSize(img2.getWidth(null) + 50, img2.getHeight(null) + 50);
         JLabel lbl = new JLabel();
